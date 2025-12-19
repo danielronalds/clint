@@ -1,0 +1,10 @@
+[tools]
+go = "latest"
+
+[tasks.build]
+description = "Builds the project"
+run = "go build ."
+
+[tasks.dev]
+description = "Runs the project"
+run = "go run ."

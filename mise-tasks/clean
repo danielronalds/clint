@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#MISE description="Cleans unwanted files"
+
+files=("clint")
+
+for file in "${files[@]}"; do
+    if [[ ! -e $file ]]; then
+        continue
+    fi
+
+    rm $file
+    echo "Removed './$file'"
+done
