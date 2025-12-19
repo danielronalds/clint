@@ -4,21 +4,21 @@ import (
 	"log"
 	"os"
 
-	"github.com/danielronalds/clint/internal/parsing"
-	"github.com/danielronalds/clint/internal/pipelines"
+	"github.com/danielronalds/clint/internal/controllers"
 )
 
 func main() {
-	path := "./clint.yaml"
+	args := os.Args[1:]
 
-	pipeline, err := parsing.ParseClintFile(path)
-	if err != nil {
-		log.Fatal(err.Error())
+	if err := run(args); err != nil {
+		log.Fatalln(err.Error())
+	}
+}
+
+func run(args []string) error {
+	if len(args) == 0 {
+		return controllers.Run()
 	}
 
-	allStepsPass := pipelines.Run(pipeline)
-
-	if !allStepsPass {
-		os.Exit(1)
-	}
+	return nil
 }
