@@ -3,6 +3,8 @@ package parsing
 import (
 	"reflect"
 	"testing"
+
+	"github.com/danielronalds/clint/internal/pipelines"
 )
 
 func TestParseConfig(t *testing.T) {
@@ -15,9 +17,9 @@ steps:
     cmd: "echo Hello World"
 `)
 
-	expected := &Pipeline{
+	expected := &pipelines.Pipeline{
 		Name: "Test",
-		Steps: []Step{
+		Steps: []pipelines.Step{
 			{
 				Name: "Setup",
 				Cmd:  "mkdir test",

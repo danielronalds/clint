@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"os"
 
 	"github.com/danielronalds/clint/internal/parsing"
+	"github.com/danielronalds/clint/internal/pipelines"
 )
 
 func main() {
@@ -15,5 +16,9 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	fmt.Println(pipeline.Name)
+	allStepsPass := pipelines.Run(pipeline)
+
+	if !allStepsPass {
+		os.Exit(1)
+	}
 }
