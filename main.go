@@ -20,5 +20,5 @@ func run(args []string) error {
 		return controllers.RunDefault()
 	}
 
-	return nil
+	return controllers.RunPipeline(args)
 }

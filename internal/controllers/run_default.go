@@ -4,14 +4,13 @@ import (
 	"errors"
 	"os"
 
+	"github.com/danielronalds/clint/internal"
 	"github.com/danielronalds/clint/internal/parsing"
 	"github.com/danielronalds/clint/internal/pipelines"
 )
 
 func RunDefault() error {
-	path := "./clint.yaml"
-
-	config, err := parsing.ParseClintFile(path)
+	config, err := parsing.ParseClintFile(internal.DEFAULT_CONFIG_PATH)
 	if err != nil {
 		return err
 	}
