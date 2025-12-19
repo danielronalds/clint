@@ -17,7 +17,7 @@ func main() {
 
 func run(args []string) error {
 	if len(args) == 0 {
-		return controllers.Run()
+		return controllers.RunDefault()
 	}
 
 	return nil

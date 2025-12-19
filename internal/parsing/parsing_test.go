@@ -9,24 +9,48 @@ import (
 
 func TestParseConfig(t *testing.T) {
 	config := []byte(`
-name: "Test"
-steps:
-  - name: "Setup"
-    cmd: "mkdir test"
-  - name: "Test"
-    cmd: "echo Hello World"
+pipelines:
+- name: "Test"
+  steps:
+    - name: "Setup"
+      cmd: "mkdir test"
+    - name: "Test"
+      cmd: "echo Hello World"
+- name: "Pipeline 2"
+  steps:
+    - name: "Setup"
+      cmd: "mkdir test"
+    - name: "Test"
+      cmd: "echo Hello World"
 `)
 
-	expected := &pipelines.Pipeline{
-		Name: "Test",
-		Steps: []pipelines.Step{
-			{
-				Name: "Setup",
-				Cmd:  "mkdir test",
-			},
+	expected := &ClintConfig{
+		Pipelines: []pipelines.Pipeline{
 			{
 				Name: "Test",
-				Cmd:  "echo Hello World",
+				Steps: []pipelines.Step{
+					{
+						Name: "Setup",
+						Cmd:  "mkdir test",
+					},
+					{
+						Name: "Test",
+						Cmd:  "echo Hello World",
+					},
+				},
+			},
+			{
+				Name: "Pipeline 2",
+				Steps: []pipelines.Step{
+					{
+						Name: "Setup",
+						Cmd:  "mkdir test",
+					},
+					{
+						Name: "Test",
+						Cmd:  "echo Hello World",
+					},
+				},
 			},
 		},
 	}
