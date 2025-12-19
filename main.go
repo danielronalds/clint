@@ -23,6 +23,8 @@ func run(args []string) error {
 	switch args[0] {
 	case "list":
 		return controllers.List()
+	case "help":
+		return controllers.Help()
 	default:
 		return controllers.RunPipeline(args)
 	}
