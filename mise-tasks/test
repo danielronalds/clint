@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#MISE description="Runs all tests in the project"
+
+if [[ -x "$(command -v "gotestsum")" ]]; then
+    gotestsum ./...
+else
+    go test ./...
+fi

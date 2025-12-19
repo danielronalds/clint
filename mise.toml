@@ -1,5 +1,6 @@
 [tools]
 go = "latest"
+gotestsum = "latest"
 
 [tasks.build]
 description = "Builds the project"
@@ -8,7 +9,3 @@ run = "go build ."
 [tasks.dev]
 description = "Runs the project"
 run = "go run ."
-
-[tasks.test]
-description = "Runs the project"
-run = "go test ./..."
