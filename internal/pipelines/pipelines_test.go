@@ -48,7 +48,7 @@ func TestRunStep(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			step := Step{Cmd: tt.cmd}
-			if got := runStep(step); got != tt.expected {
+			if _, got := runStep(step); got != tt.expected {
 				t.Errorf("runStep(%q) = %v; want %v", tt.cmd, got, tt.expected)
 			}
 		})

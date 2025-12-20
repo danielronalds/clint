@@ -3,7 +3,6 @@ package pipelines
 import (
 	"fmt"
 	"os/exec"
-	"strings"
 
 	a "github.com/logrusorgru/aurora/v4"
 )
@@ -18,7 +17,6 @@ type Step struct {
 	Cmd  string `yaml:"cmd"`
 }
 
-// TODO: There needs to be an option to see the failing output...
 func Run(pipeline *Pipeline) bool {
 	fmt.Printf("Running '%v' pipline\n\n", a.Bold(pipeline.Name))
 
@@ -26,7 +24,7 @@ func Run(pipeline *Pipeline) bool {
 		output, succeeds := runStep(step)
 
 		if !succeeds {
-			fmt.Printf("%v %v\n\n%v", a.Black(" FAIL ").Bold().BgBrightRed(), step.Name,output)
+			fmt.Printf("%v %v\n\n%v", a.Black(" FAIL ").Bold().BgBrightRed(), step.Name, output)
 			return false
 		}
 
@@ -37,13 +35,11 @@ func Run(pipeline *Pipeline) bool {
 }
 
 func runStep(step Step) (string, bool) {
-	splitCmd := strings.Split(step.Cmd, " ")
+	if step.Cmd == "" {
+		return "Empty Command", false
+	}
 
-	program := splitCmd[0]
-
-	args := splitCmd[1:]
-
-	output, err := exec.Command(program, args...).CombinedOutput()
+	output, err := exec.Command("bash", "-c", step.Cmd).CombinedOutput()
 
 	return string(output), err == nil
 }
