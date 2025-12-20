@@ -18,6 +18,7 @@ type Step struct {
 	Cmd  string `yaml:"cmd"`
 }
 
+// TODO: There needs to be an option to see the failing output...
 func Run(pipeline *Pipeline) bool {
 	fmt.Printf("Running '%v' pipline\n\n", a.Bold(pipeline.Name))
 

@@ -2,10 +2,15 @@
 go = "latest"
 gotestsum = "latest"
 
+[tasks.dev]
+description = "Runs the project"
+run = "go run ."
+
 [tasks.build]
 description = "Builds the project"
 run = "go build ."
 
-[tasks.dev]
-description = "Runs the project"
-run = "go run ."
+[tasks."build:install"]
+description = "Builds and installs clint locally"
+depends = ["build"]
+run = "mv clint ~/.local/bin/"
