@@ -1,5 +1,6 @@
 [tools]
 go = "latest"
+golangci-lint = "latest"
 gotestsum = "latest"
 
 [tasks.dev]
@@ -14,3 +15,19 @@ run = "go build ."
 description = "Builds and installs clint locally"
 depends = ["build"]
 run = "mv clint ~/.local/bin/"
+
+[tasks."lint:fmt"]
+description = "Check for unformatted code"
+run = "test -z $(gofmt -l .)"
+
+[tasks."lint:vet"]
+description = "Run go vet for suspicious constructs"
+run = "go vet ./..."
+
+[tasks."lint:static"]
+description = "Run aggregated linters via golangci-lint"
+run = "golangci-lint run"
+
+[tasks."lint:deps"]
+description = "Check for unused or missing dependencies"
+run = "go mod tidy && git diff --exit-code go.mod go.sum"
