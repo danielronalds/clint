@@ -3,6 +3,7 @@ package pipelines
 import (
 	"fmt"
 	"os/exec"
+	"strings"
 
 	a "github.com/logrusorgru/aurora/v4"
 )
@@ -13,8 +14,13 @@ type Pipeline struct {
 }
 
 type Step struct {
-	Name string `yaml:"name"`
-	Cmd  string `yaml:"cmd"`
+	Name   string `yaml:"name"`
+	Cmd    string `yaml:"cmd"`
+	OnFail string `yaml:"on_fail"`
+}
+
+func (s Step) hasFailCmd() bool {
+	return strings.TrimSpace(s.OnFail) != ""
 }
 
 func Run(pipeline *Pipeline) bool {
@@ -24,7 +30,8 @@ func Run(pipeline *Pipeline) bool {
 		output, succeeds := runStep(step)
 
 		if !succeeds {
-			fmt.Printf("%v %v\n\n%v", a.Black(" FAIL ").Bold().BgBrightRed(), step.Name, output)
+			fmt.Printf("%v %v\n", a.Black(" FAIL ").Bold().BgBrightRed(), step.Name)
+			fmt.Printf("\n%v", output)
 			return false
 		}
 
@@ -40,6 +47,11 @@ func runStep(step Step) (string, bool) {
 	}
 
 	output, err := exec.Command("bash", "-c", step.Cmd).CombinedOutput()
+
+	if err != nil && step.hasFailCmd() {
+		output, _ := exec.Command("bash", "-c", step.OnFail).CombinedOutput()
+		return string(output), false
+	}
 
 	return string(output), err == nil
 }
