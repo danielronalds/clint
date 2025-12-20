@@ -20,6 +20,7 @@ pipelines:
   steps:
     - name: "Setup"
       cmd: "mkdir test"
+      on_fail: "echo 'unable to make dir'"
     - name: "Test"
       cmd: "echo Hello World"
 `)
@@ -30,12 +31,14 @@ pipelines:
 				Name: "Test",
 				Steps: []pipelines.Step{
 					{
-						Name: "Setup",
-						Cmd:  "mkdir test",
+						Name:   "Setup",
+						Cmd:    "mkdir test",
+						OnFail: "",
 					},
 					{
-						Name: "Test",
-						Cmd:  "echo Hello World",
+						Name:   "Test",
+						Cmd:    "echo Hello World",
+						OnFail: "",
 					},
 				},
 			},
@@ -43,12 +46,14 @@ pipelines:
 				Name: "Pipeline 2",
 				Steps: []pipelines.Step{
 					{
-						Name: "Setup",
-						Cmd:  "mkdir test",
+						Name:   "Setup",
+						Cmd:    "mkdir test",
+						OnFail: "echo 'unable to make dir'",
 					},
 					{
-						Name: "Test",
-						Cmd:  "echo Hello World",
+						Name:   "Test",
+						Cmd:    "echo Hello World",
+						OnFail: "",
 					},
 				},
 			},
