@@ -23,10 +23,10 @@ func Run(pipeline *Pipeline) bool {
 	fmt.Printf("Running '%v' pipline\n\n", a.Bold(pipeline.Name))
 
 	for _, step := range pipeline.Steps {
-		succeeds := runStep(step)
+		output, succeeds := runStep(step)
 
 		if !succeeds {
-			fmt.Printf("%v %v\n", a.Black(" FAIL ").Bold().BgBrightRed(), step.Name)
+			fmt.Printf("%v %v\n\n%v", a.Black(" FAIL ").Bold().BgBrightRed(), step.Name,output)
 			return false
 		}
 
@@ -36,14 +36,14 @@ func Run(pipeline *Pipeline) bool {
 	return true
 }
 
-func runStep(step Step) bool {
+func runStep(step Step) (string, bool) {
 	splitCmd := strings.Split(step.Cmd, " ")
 
 	program := splitCmd[0]
 
 	args := splitCmd[1:]
 
-	_, err := exec.Command(program, args...).Output()
+	output, err := exec.Command(program, args...).CombinedOutput()
 
-	return err == nil
+	return string(output), err == nil
 }
