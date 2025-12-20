@@ -3,12 +3,17 @@ package controllers
 import (
 	"fmt"
 
-	"github.com/danielronalds/clint/internal"
+	"github.com/danielronalds/clint/internal/directories"
 	"github.com/danielronalds/clint/internal/parsing"
 )
 
 func List() error {
-	config, err := parsing.ParseClintFile(internal.DEFAULT_CONFIG_PATH)
+	configPath, err := directories.FindConfigPath()
+	if err != nil {
+		return err
+	}
+
+	config, err := parsing.ParseClintFile(configPath)
 	if err != nil {
 		return err
 	}
