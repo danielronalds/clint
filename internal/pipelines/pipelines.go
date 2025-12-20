@@ -2,6 +2,7 @@ package pipelines
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -46,10 +47,14 @@ func runStep(step Step) (string, bool) {
 		return "Empty Command", false
 	}
 
-	output, err := exec.Command("bash", "-c", step.Cmd).CombinedOutput()
+	cmd := exec.Command("bash", "-c", step.Cmd)
+	cmd.Env = append(os.Environ(), "CLICOLOR_FORCE=1")
+	output, err := cmd.CombinedOutput()
 
 	if err != nil && step.hasFailCmd() {
-		output, _ := exec.Command("bash", "-c", step.OnFail).CombinedOutput()
+		cmd = exec.Command("bash", "-c", step.OnFail)
+		cmd.Env = append(os.Environ(), "CLICOLOR_FORCE=1")
+		output, _ := cmd.CombinedOutput()
 		return string(output), false
 	}
 
