@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
+
+	a "github.com/logrusorgru/aurora/v4"
 )
 
 type Pipeline struct {
@@ -17,17 +19,17 @@ type Step struct {
 }
 
 func Run(pipeline *Pipeline) bool {
-	fmt.Printf("Running '%v' pipline\n", pipeline.Name)
+	fmt.Printf("Running '%v' pipline\n\n", a.Bold(pipeline.Name))
 
 	for _, step := range pipeline.Steps {
 		succeeds := runStep(step)
 
 		if !succeeds {
-			fmt.Printf("- [x] %v\n", step.Name)
+			fmt.Printf("%v %v\n", a.Black(" FAIL ").Bold().BgBrightRed(), step.Name)
 			return false
 		}
 
-		fmt.Printf("- [✔] %v\n", step.Name)
+		fmt.Printf("%v %v\n", a.Black(" PASS ").Bold().BgBrightGreen(), step.Name)
 	}
 
 	return true
