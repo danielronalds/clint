@@ -30,12 +30,12 @@ func Run(pipeline *Pipeline) bool {
 		output, succeeds := runStep(step)
 
 		if !succeeds {
-			fmt.Printf("%v %v\n", a.Black(" FAIL ").Bold().BgBrightRed(), step.Name)
-			fmt.Printf("\n%v", output)
+			printFailBadge(step.Name)
+			printFailedOutput(output)
 			return false
 		}
 
-		fmt.Printf("%v %v\n", a.Black(" PASS ").Bold().BgBrightGreen(), step.Name)
+		printPassBadge(step.Name)
 	}
 
 	return true
