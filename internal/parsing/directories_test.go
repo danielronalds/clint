@@ -10,11 +10,9 @@ import (
 	"github.com/danielronalds/clint/internal/pipelines"
 )
 
-type path = string
-
 func TestParsePipelinesInDir(t *testing.T) {
-	testDir := createsTestDir()
-	defer os.RemoveAll(testDir)
+	createTestDir()
+	defer deleteTestDir()
 
 	expected := []pipelines.Pipeline{
 		{
@@ -49,7 +47,7 @@ func TestParsePipelinesInDir(t *testing.T) {
 		},
 	}
 
-	result, err := ParsePipelinesInDir(testDir)
+	result, err := ParsePipelinesInDir(TEST_DIR)
 	if err != nil {
 		log.Fatalf("ParsePipelinesInDir failed: %v", err.Error())
 	}
@@ -66,27 +64,34 @@ steps:
   - name: "Test"
     cmd: "echo Hello World"
 `
+const TEST_DIR = "test_dir"
 
-func createsTestDir() path {
-	testDir := "test_dir"
-
-	err := os.Mkdir(testDir, 0755)
+func createTestDir() {
+	err := os.Mkdir(TEST_DIR, 0755)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 
 	for _, name := range []string{"ci.yaml", "release.yaml"} {
-		filePath := filepath.Join(testDir, name)
+		filePath := filepath.Join(TEST_DIR, name)
 
 		file, err := os.Create(filePath)
 		if err != nil {
 			log.Fatalln(err.Error())
 		}
 
-		file.WriteString(EXAMPLE_PIPELINE)
+		if _, err = file.WriteString(EXAMPLE_PIPELINE); err != nil {
+			log.Fatalln(err.Error())
+		}
 
-		file.Close()
+		if err = file.Close(); err != nil {
+			log.Fatalln(err.Error())
+		}
 	}
+}
 
-	return testDir
+func deleteTestDir() {
+	if err := os.RemoveAll(TEST_DIR); err != nil {
+		log.Fatalf("unable to remove test directory, '%v': %v", TEST_DIR, err.Error())
+	}
 }
