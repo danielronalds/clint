@@ -33,10 +33,10 @@ func ParsePipelinesInDir(directory string) ([]pipelines.Pipeline, error) {
 		lines = append(lines, *pipeline)
 	}
 
-    return lines, nil
+	return lines, nil
 }
 
-func parsePipelineFile(directory , filename string) (*pipelines.Pipeline, error) {
+func parsePipelineFile(directory, filename string) (*pipelines.Pipeline, error) {
 	path := filepath.Join(directory, filename)
 
 	contents, err := os.ReadFile(path)
