@@ -26,7 +26,7 @@ func ParsePipelinesInDir(directory string) ([]pipelines.Pipeline, error) {
 
 		pipeline, err := parsePipelineFile(directory, entry.Name())
 		if err != nil {
-			log.Printf("unable to parse pipeline file: %v\n", entry.Name())
+			log.Printf("unable to parse pipeline file '%v': %v\n", entry.Name(), err.Error())
 			continue
 		}
 
