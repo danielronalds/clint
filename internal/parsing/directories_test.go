@@ -92,6 +92,6 @@ func createTestDir() {
 
 func deleteTestDir() {
 	if err := os.RemoveAll(TEST_DIR); err != nil {
-		log.Fatalf("unable to remove test directory, '%v': %v", TEST_DIR, err.Error())
+		log.Fatalf("unable to remove test directory, '%v': %v", TEST_DIR, err)
 	}
 }

@@ -14,10 +14,10 @@ import (
 func ParsePipelinesInDir(directory string) ([]pipelines.Pipeline, error) {
 	entries, err := os.ReadDir(directory)
 	if err != nil {
-		return nil, fmt.Errorf("unable to read directory: %v", err.Error())
+		return nil, fmt.Errorf("unable to read directory: %w", err)
 	}
 
-	lines := make([]pipelines.Pipeline, 0)
+	parsedPipelines := make([]pipelines.Pipeline, 0)
 
 	for _, entry := range entries {
 		if entry.IsDir() {
@@ -30,10 +30,10 @@ func ParsePipelinesInDir(directory string) ([]pipelines.Pipeline, error) {
 			continue
 		}
 
-		lines = append(lines, *pipeline)
+		parsedPipelines = append(parsedPipelines, *pipeline)
 	}
 
-	return lines, nil
+	return parsedPipelines, nil
 }
 
 func parsePipelineFile(directory, filename string) (*pipelines.Pipeline, error) {
@@ -49,7 +49,7 @@ func parsePipelineFile(directory, filename string) (*pipelines.Pipeline, error) 
 		return nil, err
 	}
 
-	pipeline.Name = strings.TrimRight(filename, ".yaml")
+	pipeline.Name = strings.TrimSuffix(filename, ".yaml")
 
 	return pipeline, nil
 }

@@ -20,12 +20,12 @@ func ParseClintFile(directory, filename string) (*ClintConfig, error) {
 
 	config, err := os.ReadFile(clintFilepath)
 	if err != nil {
-		return nil, fmt.Errorf("unable to read file: %v", err.Error())
+		return nil, fmt.Errorf("unable to read file: %w", err)
 	}
 
 	parsedConfig, err := parseConfig(config)
 	if err != nil {
-		return nil, fmt.Errorf("unable to parse config: %v", err.Error())
+		return nil, fmt.Errorf("unable to parse config: %w", err)
 	}
 
 	if strings.TrimSpace(parsedConfig.PipelinesDir) != "" {

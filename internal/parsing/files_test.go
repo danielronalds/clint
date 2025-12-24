@@ -64,7 +64,7 @@ pipelines:
 	result, err := parseConfig(config)
 
 	if err != nil {
-		t.Fatalf("parseConfig failed: %v", err.Error())
+		t.Fatalf("parseConfig failed: %v", err)
 	}
 
 	if !reflect.DeepEqual(result, expected) {
