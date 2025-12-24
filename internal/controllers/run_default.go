@@ -15,7 +15,7 @@ func RunDefault() error {
 		return err
 	}
 
-	config, err := parsing.ParseClintFile(configPath)
+	config, err := parsing.ParseClintFile(configPath, config.CONFIG_NAME)
 	if err != nil {
 		return err
 	}

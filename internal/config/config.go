@@ -18,7 +18,7 @@ func findConfigDir(currentDirectory string) (string, error) {
 
 	for _, entry := range entries {
 		if entry.Name() == CONFIG_NAME {
-			return fmt.Sprintf("%v/%v", currentDirectory, CONFIG_NAME), nil
+			return currentDirectory, nil
 		}
 	}
 

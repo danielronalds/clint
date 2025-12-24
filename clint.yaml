@@ -1,18 +1,1 @@
-pipelines:
-  - name: "CI"
-    steps:
-      - name: "Formatting"
-        cmd: 'mise lint:fmt'
-        on_fail: "gofmt -d ."
-
-      - name: "Tests"
-        cmd: "mise test"
-
-      - name: "Vet"
-        cmd: "mise lint:vet"
-
-      - name: "Static Lint Test"
-        cmd: "mise lint:static"
-
-      - name: "Checking for unused dependencies"
-        cmd: "mise lint:deps"
+pipelines_dir: "pipelines/"

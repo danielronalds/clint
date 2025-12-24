@@ -26,6 +26,7 @@ pipelines:
 `)
 
 	expected := &ClintConfig{
+		PipelinesDir: "",
 		Pipelines: []pipelines.Pipeline{
 			{
 				Name: "Test",
