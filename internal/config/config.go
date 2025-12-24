@@ -1,11 +1,9 @@
-package directories
+package config
 
 import (
 	"errors"
 	"fmt"
 	"os"
-
-	"github.com/danielronalds/clint/internal"
 )
 
 func FindConfigPath() (string, error) {
@@ -19,8 +17,8 @@ func findConfigDir(currentDirectory string) (string, error) {
 	}
 
 	for _, entry := range entries {
-		if entry.Name() == internal.CONFIG_NAME {
-			return fmt.Sprintf("%v/%v", currentDirectory, internal.CONFIG_NAME), nil
+		if entry.Name() == CONFIG_NAME {
+			return fmt.Sprintf("%v/%v", currentDirectory, CONFIG_NAME), nil
 		}
 	}
 

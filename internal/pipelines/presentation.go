@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/danielronalds/clint/internal"
+	"github.com/danielronalds/clint/internal/config"
 	a "github.com/logrusorgru/aurora/v4"
 )
 
@@ -21,7 +21,7 @@ func printFailBadge(stepName string) {
 func printFailedOutput(output string) {
 	linesInOutput := strings.Split(output, "\n")
 
-	if len(linesInOutput) < internal.MAX_LINES_WITHOUT_PAGER {
+	if len(linesInOutput) < config.MAX_LINES_WITHOUT_PAGER {
 		fmt.Printf("\n%s\n", output)
 		return
 	}
@@ -29,7 +29,7 @@ func printFailedOutput(output string) {
 	pager, isSet := os.LookupEnv("PAGER")
 
 	if !isSet {
-		pager = internal.FALLBACK_PAGER
+		pager = config.FALLBACK_PAGER
 	}
 
 	cmd := exec.Command(pager)

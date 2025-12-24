@@ -3,7 +3,7 @@ package controllers
 import (
 	"fmt"
 
-	"github.com/danielronalds/clint/internal"
+	"github.com/danielronalds/clint/internal/config"
 )
 
 const HELP_MENU = `clint v%v
@@ -20,7 +20,7 @@ Commands
 `
 
 func Help() error {
-	fmt.Printf(HELP_MENU, internal.VERSION)
+	fmt.Printf(HELP_MENU, config.VERSION)
 
 	return nil
 }

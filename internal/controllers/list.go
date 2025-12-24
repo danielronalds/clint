@@ -3,12 +3,12 @@ package controllers
 import (
 	"fmt"
 
-	"github.com/danielronalds/clint/internal/directories"
+	"github.com/danielronalds/clint/internal/config"
 	"github.com/danielronalds/clint/internal/parsing"
 )
 
 func List() error {
-	configPath, err := directories.FindConfigPath()
+	configPath, err := config.FindConfigPath()
 	if err != nil {
 		return err
 	}

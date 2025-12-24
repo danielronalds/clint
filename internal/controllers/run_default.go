@@ -4,13 +4,13 @@ import (
 	"errors"
 	"os"
 
-	"github.com/danielronalds/clint/internal/directories"
+	"github.com/danielronalds/clint/internal/config"
 	"github.com/danielronalds/clint/internal/parsing"
 	"github.com/danielronalds/clint/internal/pipelines"
 )
 
 func RunDefault() error {
-	configPath, err := directories.FindConfigPath()
+	configPath, err := config.FindConfigPath()
 	if err != nil {
 		return err
 	}

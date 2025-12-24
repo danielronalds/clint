@@ -1,4 +1,4 @@
-package internal
+package config
 
 const CONFIG_NAME = "clint.yaml"
 

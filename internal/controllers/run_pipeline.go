@@ -4,7 +4,7 @@ import (
 	"errors"
 	"os"
 
-	"github.com/danielronalds/clint/internal/directories"
+	"github.com/danielronalds/clint/internal/config"
 	"github.com/danielronalds/clint/internal/parsing"
 	"github.com/danielronalds/clint/internal/pipelines"
 )
@@ -16,7 +16,7 @@ func RunPipeline(args []string) error {
 
 	pipelineName := args[0]
 
-	configPath, err := directories.FindConfigPath()
+	configPath, err := config.FindConfigPath()
 	if err != nil {
 		return err
 	}
