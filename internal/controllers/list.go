@@ -9,24 +9,22 @@ import (
 	a "github.com/logrusorgru/aurora/v4"
 )
 
-const COLUMN_GAP = 3
-
 func List() error {
 	configPath, err := config.FindConfigPath()
 	if err != nil {
 		return err
 	}
 
-	config, err := parsing.ParseClintFile(configPath, config.CONFIG_NAME)
+	parsedConfig, err := parsing.ParseClintFile(configPath, config.CONFIG_NAME)
 	if err != nil {
 		return err
 	}
 
-	columnWidth := longestWidthName(config.Pipelines, len("Name")) + COLUMN_GAP
+	columnWidth := longestWidthName(parsedConfig.Pipelines, len("Name")) + config.COLUMN_GAP
 
 	fmt.Printf("%-*s%s\n", columnWidth, a.Italic("Name").Bold(), a.Italic("Description").Bold())
 
-	for _, pipeline := range config.Pipelines {
+	for _, pipeline := range parsedConfig.Pipelines {
 		fmt.Printf("%-*s%s\n", columnWidth, pipeline.Name, a.Italic(pipeline.Description))
 	}
 
@@ -35,7 +33,7 @@ func List() error {
 
 func longestWidthName(pipelines []pipelines.Pipeline, startMax int) int {
 	if len(pipelines) == 0 {
-		return 0
+		return startMax
 	}
 
 	max := startMax
