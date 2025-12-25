@@ -11,6 +11,7 @@ func TestParseConfig(t *testing.T) {
 	config := []byte(`
 pipelines:
 - name: "Test"
+  description: "A simple pipeline for testing"
   steps:
     - name: "Setup"
       cmd: "mkdir test"
@@ -29,7 +30,8 @@ pipelines:
 		PipelinesDir: "",
 		Pipelines: []pipelines.Pipeline{
 			{
-				Name: "Test",
+				Name:        "Test",
+				Description: "A simple pipeline for testing",
 				Steps: []pipelines.Step{
 					{
 						Name:   "Setup",
