@@ -1,3 +1,4 @@
+description: "Basic Golang CI pipeline to ensure code quality"
 steps:
   - name: "Formatting"
     cmd: 'mise lint:fmt'

@@ -30,7 +30,7 @@ pipelines:
 		PipelinesDir: "",
 		Pipelines: []pipelines.Pipeline{
 			{
-				Name: "Test",
+				Name:        "Test",
 				Description: "A simple pipeline for testing",
 				Steps: []pipelines.Step{
 					{
