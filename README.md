@@ -4,6 +4,8 @@ Your friendly **C**ontinuous **L**ocal **I**ntegration assistant.
 
 CLInt allows CI pipelines to be defined and run on local machines, for your developer convenience.
 
+![screenshot of clint running through the ci pipeline](.github/demo-screenshot.png)
+
 ## Installation
 
 Installation requires go to be installed on your machine:
