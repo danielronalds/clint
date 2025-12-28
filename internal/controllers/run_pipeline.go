@@ -10,8 +10,13 @@ import (
 )
 
 func RunPipeline(args []string) error {
-	if len(args) != 1 {
-		return errors.New("too many arguments")
+	switch len(args) {
+	case 0:
+		return errors.New("no pipeline provided")
+	case 1:
+		break
+	default:
+		return errors.New("too many arguments provided")
 	}
 
 	pipelineName := args[0]

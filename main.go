@@ -25,6 +25,8 @@ func run(args []string) error {
 		return controllers.List()
 	case "help":
 		return controllers.Help()
+	case "run":
+		return controllers.RunPipeline(args[1:])
 	default:
 		return controllers.RunPipeline(args)
 	}
