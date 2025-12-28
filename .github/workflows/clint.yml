@@ -1,8 +1,8 @@
-name: Run Clint
+name: Linting
 on: [push]
 
 jobs:
-  build-and-run:
+  clint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -13,14 +13,7 @@ jobs:
         with:
           install: true
 
-      - name: Setup Go
-        uses: actions/setup-go@v5
+      - name: Run CI Pipeline
+        uses: danielronalds/clint-runner@main
         with:
-          go-version: '1.25'
-          cache: true
-
-      - name: Install Clint
-        run: go install github.com/danielronalds/clint@latest
-
-      - name: Run CLI
-        run: clint ci
+          pipeline: ci
