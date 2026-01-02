@@ -22,7 +22,7 @@ func List() error {
 
 	columnWidth := longestWidthName(parsedConfig.Pipelines, len("Name")) + config.COLUMN_GAP
 
-	fmt.Printf("%-*s%s\n", columnWidth, a.Italic("Name").Bold(), a.Italic("Description").Bold())
+	fmt.Printf("%-*s%s\n", columnWidth, a.Bold("Name"), a.Bold("Description"))
 
 	for _, pipeline := range parsedConfig.Pipelines {
 		fmt.Printf("%-*s%s\n", columnWidth, pipeline.Name, a.Italic(pipeline.Description))
