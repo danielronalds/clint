@@ -1,17 +1,18 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/danielronalds/clint/internal/controllers"
+	"github.com/danielronalds/clint/internal/logger"
 )
 
 func main() {
 	args := os.Args[1:]
 
 	if err := run(args); err != nil {
-		log.Fatalln(err.Error())
+		logger.Error(err.Error() + "\n")
+		os.Exit(1)
 	}
 }
 

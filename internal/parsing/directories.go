@@ -2,11 +2,11 @@ package parsing
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/danielronalds/clint/internal/logger"
 	"github.com/danielronalds/clint/internal/pipelines"
 	"gopkg.in/yaml.v3"
 )
@@ -26,7 +26,7 @@ func ParsePipelinesInDir(directory string) ([]pipelines.Pipeline, error) {
 
 		pipeline, err := parsePipelineFile(directory, entry.Name())
 		if err != nil {
-			log.Printf("unable to parse pipeline file '%v': %v\n", entry.Name(), err.Error())
+			logger.Warning("unable to parse pipeline file '%v': %v\n", entry.Name(), err.Error())
 			continue
 		}
 
