@@ -21,7 +21,7 @@ func RunDefault() error {
 	}
 
 	if len(config.Pipelines) < 1 {
-		return errors.New("no pilelines defined in config")
+		return errors.New("no pipelines defined in config")
 	}
 
 	allStepsPass := pipelines.Run(&config.Pipelines[0])
